@@ -46,7 +46,55 @@ fin = "fin"{ESPACIO_BLANCO}
                            token.setLexema (yytext ());
            			       return token;
                         }
-    
+
+    "-"                {
+                            Token token = new Token (sym.MINUS);
+                            token.setLine (yyline + 1);
+                            token.setColumn (yycolumn + 1);
+                            token.setLexema (yytext ());
+                            return token;
+                        }
+
+    "--"                {
+                            Token token = new Token (sym.COMMENT);
+                            token.setLine (yyline + 1);
+                            token.setColumn (yycolumn + 1);
+                            token.setLexema (yytext ());
+                            return token;
+                        }
+
+    "("                {
+                            Token token = new Token (sym.LPARENTHESIS);
+                            token.setLine (yyline + 1);
+                            token.setColumn (yycolumn + 1);
+                            token.setLexema (yytext ());
+                            return token;
+                        }
+
+    ")"                {
+                            Token token = new Token (sym.RPARENTHESIS);
+                            token.setLine (yyline + 1);
+                            token.setColumn (yycolumn + 1);
+                            token.setLexema (yytext ());
+                            return token;
+                        }
+
+    "\""                {
+                            Token token = new Token (sym.COMMA);
+                            token.setLine (yyline + 1);
+                            token.setColumn (yycolumn + 1);
+                            token.setLexema (yytext ());
+                            return token;
+                        }
+
+    ";"                {
+                                Token token = new Token (sym.SEMI);
+                                token.setLine (yyline + 1);
+                                token.setColumn (yycolumn + 1);
+                                token.setLexema (yytext ());
+                                return token;
+                            }
+
     // incluir aqui el resto de las reglas patron - accion
     "procedure" 	{
 			   Token token = new Token(1);
@@ -60,7 +108,7 @@ fin = "fin"{ESPACIO_BLANCO}
 
 {fin} {}
     
-    // error en caso de coincidir con ningún patrón
+    // error en caso de coincidir con ningï¿½n patrï¿½n
 	[^]     
                         {                                               
                            LexicalError error = new LexicalError ();

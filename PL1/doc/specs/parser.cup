@@ -55,7 +55,11 @@ parser code {:
 terminal Token PLUS;
 terminal Token MINUS;
 // ...
-
+terminal Token COMMA;
+terminal Token COMMENT;
+terminal Token LPARENTHESIS;
+terminal Token RPARENTHESIS;
+terminal Token SEMI;
 
 // Declaracion de no terminales
 // no modificar los propuestos
@@ -70,7 +74,7 @@ precedence left     PLUS,
                     MINUS;
 // ...
 
-// Declaración de reglas de produccion
+// Declaraciï¿½n de reglas de produccion
 
 
 start with program;
