@@ -47,6 +47,15 @@ fin = "fin"{ESPACIO_BLANCO}
            			       return token;
                         }
 
+    // incluir aqui el resto de las reglas patron - accion
+    "procedure" 	{
+			   Token token = new Token(1);
+                           token.setLine (yyline + 1);
+                           token.setColumn (yycolumn + 1);
+                           token.setLexema (yytext ());
+           			       return token;
+			}
+
     "-"                {
                             Token token = new Token (sym.MINUS);
                             token.setLine (yyline + 1);
@@ -94,15 +103,6 @@ fin = "fin"{ESPACIO_BLANCO}
                                 token.setLexema (yytext ());
                                 return token;
                             }
-
-    // incluir aqui el resto de las reglas patron - accion
-    "procedure" 	{
-			   Token token = new Token(1);
-                           token.setLine (yyline + 1);
-                           token.setColumn (yycolumn + 1);
-                           token.setLexema (yytext ());
-           			       return token;
-			}
 
    {ESPACIO_BLANCO}	{}
 
