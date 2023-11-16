@@ -55,11 +55,37 @@ parser code {:
 terminal Token PLUS;
 terminal Token MINUS;
 // ...
-terminal Token COMMA;
-terminal Token COMMENT;
-terminal Token LPARENTHESIS;
-terminal Token RPARENTHESIS;
+terminal Token MULT;
+terminal Token GREATER;
+terminal Token DISTINC;
+terminal Token ASSIGN;
+terminal Token ACCESS;
+terminal Token LPAR;
+terminal Token RPAR;
+terminal Token COL;
 terminal Token SEMI;
+terminal Token COMMA;
+terminal Token AND;
+terminal Token BEGIN;
+terminal Token BOOL;
+terminal Token CONST;
+terminal Token IF;
+terminal Token ELSE;
+terminal Token THEN;
+terminal Token END;
+terminal Token FALSE;
+terminal Token TRUE;
+terminal Token FUNCT;
+terminal Token INT;
+terminal Token LOOP;
+terminal Token WHILE;
+terminal Token IS;
+terminal Token OUT;
+terminal Token PUTLINE;
+terminal Token RECORD;
+terminal Token RETURN;
+terminal Token TYPE;
+terminal Token STRTEXT;
 
 // Declaracion de no terminales
 // no modificar los propuestos
