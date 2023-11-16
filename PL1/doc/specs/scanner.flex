@@ -30,9 +30,9 @@ import es.uned.lsi.compiler.lexical.LexicalErrorManager;
 
   Token newToken(int i){
       Token tkn = new Token(i);
-      token.setLine (yyline + 1);
-      token.setColumn (yycolumn + 1);
-      token.setLexema (yytext ());
+      tkn.setLine (yyline + 1);
+      tkn.setColumn (yycolumn + 1);
+      tkn.setLexema (yytext ());
       return tkn;
   }
 
