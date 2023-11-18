@@ -85,7 +85,10 @@ terminal Token PUTLINE;
 terminal Token RECORD;
 terminal Token RETURN;
 terminal Token TYPE;
+terminal Token PROCEDURE;
 terminal Token STRTEXT;
+terminal Token INTEGER;
+terminal Token IDENTIFIER;
 
 // Declaracion de no terminales
 // no modificar los propuestos
