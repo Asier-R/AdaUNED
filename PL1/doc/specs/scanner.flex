@@ -56,7 +56,7 @@ IDENTIFIER = {LETTRE}+({LETTRE}|{DIGIT})*
 <YYINITIAL> 
 {
     // incluir aqui el resto de las reglas patron - accion
-    "+"                 {return newToken(sym.PLUS);}
+    //"+"                 {return newToken(sym.PLUS);}
     "-"                 {return newToken(sym.MINUS);}
     "*"                 {return newToken(sym.MULT);}
     ">"                 {return newToken(sym.GREATER);}

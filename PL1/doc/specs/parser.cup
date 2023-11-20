@@ -52,7 +52,7 @@ parser code {:
 
 // Declaracion de terminales (Ejemplo)
 
-terminal Token PLUS;
+//terminal Token PLUS;
 terminal Token MINUS;
 // ...
 terminal Token MULT;
@@ -96,11 +96,23 @@ terminal Token IDENTIFIER;
 non terminal  			program;
 non terminal Axiom		axiom;
 // ...
-
+non terminal bloqueProcedure, bloqueBegin;
+non terminal firmaProcedure, declaraciones, sentencias, firmaFinal;
+non terminal constante, tipoPrimitivo, tipoEstructurado, variable;
+non terminal funcion, procedimiento;
+non terminal firmaFunc, sentenciasFunc, declaracionesFunc, firmaProc, sentenciasProc, declaracionesProc;
+non terminal listaParam, listaParamVal, listaParamRef;
+non terminal expAritmetica, expLogica, expAcceso, usoSubprograma, asignacion, controlFlujo;
+non terminal ifThenElse, sentenciaIf, sentenciaElse, sentenciaWhile, sentenciaPutLine;
 
 // Declaracion de relaciones de precedencia
-precedence left     PLUS,
-                    MINUS;
+//precedence left     PLUS,
+precedence left       AND;
+precedence left       GREATER, DISTINC;
+precedence left       MINUS;
+precedence left       MULT;
+precedence left       LPAR, RPAR;
+
 // ...
 
 // Declaraci�n de reglas de produccion
