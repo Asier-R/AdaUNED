@@ -23,6 +23,8 @@ import es.uned.lsi.compiler.lexical.LexicalErrorManager;
 %scanerror LexicalError
 
 // incluir aqui, si es necesario otras directivas
+%ignorecase
+%full
 
 %{
   LexicalErrorManager lexicalErrorManager = new LexicalErrorManager ();
@@ -54,15 +56,15 @@ IDENTIFIER = {LETTRE}+({LETTRE}|{DIGIT})*
 <YYINITIAL> 
 {
     // incluir aqui el resto de las reglas patron - accion
-    "+"                 {return newToken(sym.PLUS);}  //2
-    "-"                 {return newToken(sym.MINUS);} //3
+    "+"                 {return newToken(sym.PLUS);}
+    "-"                 {return newToken(sym.MINUS);}
     "*"                 {return newToken(sym.MULT);}
     ">"                 {return newToken(sym.GREATER);}
     "/="                {return newToken(sym.DISTINC);}
     ":="                {return newToken(sym.ASSIGN);}
-    "."                 {return newToken(sym.ACCESS);} //8
-    "("                 {return newToken(sym.LPAR);}  //9
-    ")"                 {return newToken(sym.RPAR);} //10
+    "."                 {return newToken(sym.ACCESS);}
+    "("                 {return newToken(sym.LPAR);}
+    ")"                 {return newToken(sym.RPAR);}
     ":"                 {return newToken(sym.COL);}
     ";"                 {return newToken(sym.SEMI);}
     ","                 {return newToken(sym.COMMA);}
@@ -72,7 +74,7 @@ IDENTIFIER = {LETTRE}+({LETTRE}|{DIGIT})*
     "constant"          {return newToken(sym.CONST);}
     "if"                {return newToken(sym.IF);}
     "else"              {return newToken(sym.ELSE);}
-    "then"              {return newToken(sym.THEN);} //20
+    "then"              {return newToken(sym.THEN);}
     "end"               {return newToken(sym.END);}
     "False"             {return newToken(sym.FALSE);}
     "True"              {return newToken(sym.TRUE);}
@@ -82,14 +84,14 @@ IDENTIFIER = {LETTRE}+({LETTRE}|{DIGIT})*
     "while"             {return newToken(sym.WHILE);}
     "is"                {return newToken(sym.IS);}
     "out"               {return newToken(sym.OUT);}
-    "Put_line"          {return newToken(sym.PUTLINE);} //30
+    "Put_line"          {return newToken(sym.PUTLINE);}
     "record"            {return newToken(sym.RECORD);}
     "return"            {return newToken(sym.RETURN);}
     "type"              {return newToken(sym.TYPE);}
-    "procedure"         {return newToken(sym.PROCEDURE);} //34
-    {STRTEXT}           {return newToken(sym.STRTEXT);} //35
-    {INTEGER}           {return newToken(sym.INTEGER);} //36
-    {IDENTIFIER}        {return newToken(sym.IDENTIFIER);} //37
+    "procedure"         {return newToken(sym.PROCEDURE);}
+    {STRTEXT}           {return newToken(sym.STRTEXT);}
+    {INTEGER}           {return newToken(sym.INTEGER);}
+    {IDENTIFIER}        {return newToken(sym.IDENTIFIER);}
     {COMMENT}           {lexicalErrorManager.lexicalInfo("Non Token - [ Comentario de linea = "+(yytext())+" , line = "+(yyline+1)+", column = "+(yycolumn+1)+"]\n");}
 
 
@@ -104,7 +106,8 @@ IDENTIFIER = {LETTRE}+({LETTRE}|{DIGIT})*
                            error.setLine (yyline + 1);
                            error.setColumn (yycolumn + 1);
                            error.setLexema (yytext ());
-                           lexicalErrorManager.lexicalError (error);
+                           //lexicalErrorManager.lexicalError (error);
+                           lexicalErrorManager.lexicalError ("Token - [ Token no valido, line = "+(yyline+1)+", column = "+(yycolumn+1)+"]");
                         }
     
 }
