@@ -100,6 +100,7 @@ non terminal Axiom		axiom;
 non terminal gramatica, vacio;
 non terminal procedureFirma, procedureFin, bloqueProcedure, bloqueBegin;
 non terminal constante, constanteTipo;
+non terminal listaDeclarar;
 non terminal tipoPrimitivo, tipoPrimitivoTipo;
 non terminal tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
 
@@ -157,7 +158,8 @@ constante         ::= IDENTIFIER COL CONST ASSIGN constanteTipo SEMI;
 constanteTipo     ::= TRUE | FALSE | INTEGER;
 
 // Tipos primitivos
-tipoPrimitivo     ::= IDENTIFIER COL tipoPrimitivoTipo SEMI;
+tipoPrimitivo     ::= IDENTIFIER COL tipoPrimitivoTipo SEMI
+                    | IDENTIFIER COMMA tipoPrimitivo;
 tipoPrimitivoTipo ::= INT | BOOL;
 
 // Tipos estructurados

@@ -10,6 +10,7 @@ UNO: constant := 1;
 -- Tipos primitivos
 x: Integer;
 t: Boolean;
+y,z: Integer;
 
 -- Tipos estructurados
 type Tpersona is record
@@ -19,8 +20,8 @@ type Tpersona is record
 end record;
 
 type Tfecha is record
-	dia: Integer;
-	mes : Integer;
+	dia,mes: Integer;
+	--mes : Integer;
 	anyo : Integer;
 end record;
 
