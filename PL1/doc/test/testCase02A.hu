@@ -8,13 +8,13 @@ FALSO: constant := False;
 UNO: constant := 1;
 
 -- Tipos primitivos
-x: Integer;
+x: Integer; --Si se asigna salta error := 1;
 t: Boolean;
 y,z: Integer;
 
 -- Tipos estructurados
 type Tpersona is record
-	dni: Integer;
+	dni: Integer; --Si se asigna salta error := 1;
 	edad : Integer;
 	casado : Boolean;
 end record;

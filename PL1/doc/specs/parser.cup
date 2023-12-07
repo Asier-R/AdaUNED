@@ -100,8 +100,7 @@ non terminal Axiom		axiom;
 non terminal gramatica, vacio;
 non terminal procedureFirma, procedureFin, bloqueProcedure, bloqueBegin;
 non terminal constante, constanteTipo;
-non terminal listaDeclarar;
-non terminal tipoPrimitivo, tipoPrimitivoTipo;
+non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
 non terminal tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
 
 //non terminal declaraciones, sentencias;
@@ -147,9 +146,9 @@ vacio             ::= ;
 procedureFirma    ::= PROCEDURE IDENTIFIER LPAR RPAR IS;
 procedureFin      ::= END IDENTIFIER SEMI;
 
-bloqueProcedure   ::= constante     bloqueProcedure
-                    | tipoPrimitivo bloqueProcedure
-                    | tipoRecord    bloqueProcedure
+bloqueProcedure   ::= constante         bloqueProcedure
+                    | declararPrimitivo bloqueProcedure
+                    | tipoRecord        bloqueProcedure
                     | vacio;
 bloqueBegin       ::= vacio;
 
@@ -158,7 +157,10 @@ constante         ::= IDENTIFIER COL CONST ASSIGN constanteTipo SEMI;
 constanteTipo     ::= TRUE | FALSE | INTEGER;
 
 // Tipos primitivos
-tipoPrimitivo     ::= IDENTIFIER COL tipoPrimitivoTipo SEMI
+declararPrimitivo ::= tipoPrimitivo SEMI
+                    | tipoPrimitivo ASSIGN
+                    error{:syntaxErrorManager.syntaxError("Asignación no permitida.");:};
+tipoPrimitivo     ::= IDENTIFIER COL tipoPrimitivoTipo
                     | IDENTIFIER COMMA tipoPrimitivo;
 tipoPrimitivoTipo ::= INT | BOOL;
 
@@ -168,5 +170,5 @@ tipoRecordFirma   ::= TYPE IDENTIFIER IS RECORD;
 tipoRecordFin     ::= END RECORD SEMI;
 tipoRecordCuerpo  ::= tipoRecordCampo
                     | tipoRecordCampo tipoRecordCuerpo;
-tipoRecordCampo   ::= tipoPrimitivo
+tipoRecordCampo   ::= declararPrimitivo
                     | IDENTIFIER COL IDENTIFIER SEMI;
