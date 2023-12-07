@@ -88,6 +88,7 @@ terminal Token TYPE;
 terminal Token PROCEDURE;
 terminal Token STRTEXT;
 terminal Token INTEGER;
+terminal Token FULLINTEGER;
 terminal Token IDENTIFIER;
 
 // Declaracion de no terminales
@@ -96,14 +97,19 @@ terminal Token IDENTIFIER;
 non terminal  			program;
 non terminal Axiom		axiom;
 // ...
-non terminal bloqueProcedure, bloqueBegin;
-non terminal firmaProcedure, declaraciones, sentencias, firmaFinal;
-non terminal constante, tipoPrimitivo, tipoEstructurado, variable;
-non terminal funcion, procedimiento;
-non terminal firmaFunc, sentenciasFunc, declaracionesFunc, firmaProc, sentenciasProc, declaracionesProc;
-non terminal listaParam, listaParamVal, listaParamRef;
-non terminal expAritmetica, expLogica, expAcceso, usoSubprograma, asignacion, controlFlujo;
-non terminal ifThenElse, sentenciaIf, sentenciaElse, sentenciaWhile, sentenciaPutLine;
+non terminal gramatica, vacio;
+non terminal procedureFirma, procedureFin, bloqueProcedure, bloqueBegin;
+non terminal constante, constanteTipo;
+non terminal tipoPrimitivo, tipoPrimitivoTipo;
+non terminal tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
+
+//non terminal declaraciones, sentencias;
+//non terminal constante, tipoPrimitivo, tipoEstructurado, variable;
+//non terminal funcion, procedimiento;
+//non terminal firmaFunc, sentenciasFunc, declaracionesFunc, firmaProc, sentenciasProc, declaracionesProc;
+//non terminal listaParam, listaParamVal, listaParamRef;
+//non terminal expAritmetica, expLogica, expAcceso, usoSubprograma, asignacion, controlFlujo;
+//non terminal ifThenElse, sentenciaIf, sentenciaElse, sentenciaWhile, sentenciaPutLine;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
@@ -120,7 +126,7 @@ precedence left       LPAR, RPAR;
 
 start with program;
 
-program ::= 
+program ::=
   {: 
         syntaxErrorManager.syntaxInfo ("Starting parsing..."); 
    :}
@@ -131,4 +137,34 @@ program ::=
    :};
 
 
-axiom ::= ;
+axiom ::= gramatica;
+
+// Reglas de la gramatica
+gramatica         ::= procedureFirma bloqueProcedure BEGIN bloqueBegin procedureFin;
+vacio             ::= ;
+
+procedureFirma    ::= PROCEDURE IDENTIFIER LPAR RPAR IS;
+procedureFin      ::= END IDENTIFIER SEMI;
+
+bloqueProcedure   ::= constante     bloqueProcedure
+                    | tipoPrimitivo bloqueProcedure
+                    | tipoRecord    bloqueProcedure
+                    | vacio;
+bloqueBegin       ::= vacio;
+
+// Constantes
+constante         ::= IDENTIFIER COL CONST ASSIGN constanteTipo SEMI;
+constanteTipo     ::= TRUE | FALSE | INTEGER;
+
+// Tipos primitivos
+tipoPrimitivo     ::= IDENTIFIER COL tipoPrimitivoTipo SEMI;
+tipoPrimitivoTipo ::= INT | BOOL;
+
+// Tipos estructurados
+tipoRecord        ::= tipoRecordFirma tipoRecordCuerpo tipoRecordFin;
+tipoRecordFirma   ::= TYPE IDENTIFIER IS RECORD;
+tipoRecordFin     ::= END RECORD SEMI;
+tipoRecordCuerpo  ::= tipoRecordCampo
+                    | tipoRecordCampo tipoRecordCuerpo;
+tipoRecordCampo   ::= tipoPrimitivo
+                    | IDENTIFIER COL IDENTIFIER SEMI;
