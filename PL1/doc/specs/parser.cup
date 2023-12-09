@@ -102,7 +102,7 @@ non terminal procedureFirma, fin, bloqueProcedure, bloqueCuerpo, bloqueBegin;
 non terminal constante, constanteTipo;
 non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
 non terminal record, declararRecord, tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
-non terminal funcion, funcionFirma, bloqueFuncion, tipoRetorno;
+non terminal funcion, funcionFirma, bloqueFuncion, bloqueBeginFuncion, tipoRetorno;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
@@ -132,60 +132,86 @@ program ::=
 
 axiom ::= gramatica;
 
-// Reglas de la gramatica
-gramatica         ::= procedureFirma bloqueProcedure BEGIN bloqueBegin fin;
-vacio             ::= ;
+// Reglas de la gramatica //
+gramatica          ::= procedureFirma bloqueProcedure BEGIN bloqueBegin fin;
+vacio              ::= ;
 
-procedureFirma    ::= PROCEDURE IDENTIFIER LPAR RPAR IS;
-fin               ::= END IDENTIFIER SEMI;
+procedureFirma     ::= PROCEDURE IDENTIFIER LPAR RPAR IS;
+fin                ::= END IDENTIFIER SEMI;
 
-bloqueProcedure   ::= bloqueCuerpo;
+bloqueProcedure    ::= bloqueCuerpo;
 
-bloqueCuerpo      ::= constante         bloqueProcedure
-                    | declararPrimitivo bloqueProcedure
-                    | tipoRecord        bloqueProcedure
-                    | funcion bloqueProcedure
-                    | vacio;
+bloqueCuerpo       ::= constante         bloqueCuerpo
+                     | declararPrimitivo bloqueCuerpo
+                     | tipoRecord        bloqueCuerpo
+                     | funcion           bloqueCuerpo
+                     | vacio;
 
-bloqueBegin       ::= vacio;
+bloqueBegin        ::= vacio;
+//....................................................//
 
-// Parametros de funciones y procedimientos
+
+// Parametros de funciones y procedimientos //
 parametros         ::= parametro
                      | parametro SEMI parametros
                      | vacio;
+
 parametro          ::= IDENTIFIER COL parametroTipo
                      | IDENTIFIER COL OUT parametroTipo
                      | IDENTIFIER COMMA parametro;
+
 parametroTipo      ::= tipoPrimitivoTipo | IDENTIFIER;
+//....................................................//
 
-// Constantes
-constante         ::= IDENTIFIER COL CONST ASSIGN constanteTipo SEMI;
-constanteTipo     ::= TRUE | FALSE | INTEGER;
 
-// Tipos primitivos
-declararPrimitivo ::= tipoPrimitivo SEMI
-                    | tipoPrimitivo ASSIGN
-                    error{:syntaxErrorManager.syntaxError("Asignación no permitida.");:};
-tipoPrimitivo     ::= IDENTIFIER COL tipoPrimitivoTipo
-                    | IDENTIFIER COMMA tipoPrimitivo;
-tipoPrimitivoTipo ::= INT | BOOL;
+// Constantes //
+constante          ::= IDENTIFIER COL CONST ASSIGN constanteTipo SEMI;
 
-// Tipos estructurados
-declararRecord    ::= record SEMI
-                    | record ASSIGN
-                    error{:syntaxErrorManager.syntaxError("Asignación no permitida.");:};
-record ::= IDENTIFIER COL IDENTIFIER
-         | IDENTIFIER COMMA record;
-tipoRecord        ::= tipoRecordFirma tipoRecordCuerpo tipoRecordFin;
-tipoRecordFirma   ::= TYPE IDENTIFIER IS RECORD;
-tipoRecordFin     ::= END RECORD SEMI;
-tipoRecordCuerpo  ::= tipoRecordCampo
-                    | tipoRecordCampo tipoRecordCuerpo;
-tipoRecordCampo   ::= declararPrimitivo
-                    | declararRecord;
+constanteTipo      ::= TRUE | FALSE | INTEGER;
+//....................................................//
 
-// Funciones
-funcion           ::= funcionFirma bloqueFuncion BEGIN bloqueBegin fin;
-funcionFirma      ::= FUNCT IDENTIFIER LPAR parametros RPAR RETURN tipoRetorno IS;
-bloqueFuncion     ::= bloqueCuerpo;
-tipoRetorno       ::= INT | BOOL | IDENTIFIER;
+
+// Tipos primitivos //
+declararPrimitivo  ::= tipoPrimitivo SEMI
+                     | tipoPrimitivo ASSIGN
+                     error{:syntaxErrorManager.syntaxError("Asignación no permitida.");:};
+tipoPrimitivo      ::= IDENTIFIER COL tipoPrimitivoTipo
+                     | IDENTIFIER COMMA tipoPrimitivo;
+tipoPrimitivoTipo  ::= INT | BOOL;
+//....................................................//
+
+
+// Tipos estructurados //
+declararRecord     ::= record SEMI
+                     | record ASSIGN
+                     error{:syntaxErrorManager.syntaxError("Asignación no permitida.");:};
+
+record             ::= IDENTIFIER COL IDENTIFIER
+                     | IDENTIFIER COMMA record;
+
+tipoRecord         ::= tipoRecordFirma tipoRecordCuerpo tipoRecordFin;
+
+tipoRecordFirma    ::= TYPE IDENTIFIER IS RECORD;
+
+tipoRecordFin      ::= END RECORD SEMI;
+
+tipoRecordCuerpo   ::= tipoRecordCampo
+                     | tipoRecordCampo tipoRecordCuerpo;
+
+tipoRecordCampo    ::= declararPrimitivo
+                     | declararRecord;
+//....................................................//
+
+
+// Funciones //
+funcion            ::= funcionFirma bloqueFuncion BEGIN bloqueBeginFuncion fin;
+
+funcionFirma       ::= FUNCT IDENTIFIER LPAR parametros RPAR RETURN tipoRetorno IS;
+
+bloqueFuncion      ::= bloqueCuerpo;
+
+bloqueBeginFuncion ::= bloqueBegin;
+
+tipoRetorno        ::= INT | BOOL | IDENTIFIER;
+//....................................................//
+
