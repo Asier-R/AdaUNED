@@ -139,16 +139,19 @@ vacio             ::= ;
 procedureFirma    ::= PROCEDURE IDENTIFIER LPAR RPAR IS;
 fin               ::= END IDENTIFIER SEMI;
 
-bloqueProcedure   ::= bloqueCuerpo
-                    | funcion bloqueCuerpo;
+bloqueProcedure   ::= bloqueCuerpo;
+
 bloqueCuerpo      ::= constante         bloqueProcedure
                     | declararPrimitivo bloqueProcedure
                     | tipoRecord        bloqueProcedure
+                    | funcion bloqueProcedure
                     | vacio;
+
 bloqueBegin       ::= vacio;
 
 // Parametros de funciones y procedimientos
-parametros         ::= parametro SEMI parametros
+parametros         ::= parametro
+                     | parametro SEMI parametros
                      | vacio;
 parametro          ::= IDENTIFIER COL parametroTipo
                      | IDENTIFIER COL OUT parametroTipo
@@ -184,6 +187,5 @@ tipoRecordCampo   ::= declararPrimitivo
 // Funciones
 funcion           ::= funcionFirma bloqueFuncion BEGIN bloqueBegin fin;
 funcionFirma      ::= FUNCT IDENTIFIER LPAR parametros RPAR RETURN tipoRetorno IS;
-bloqueFuncion     ::= bloqueCuerpo
-                    | funcion bloqueFuncion;
+bloqueFuncion     ::= bloqueCuerpo;
 tipoRetorno       ::= INT | BOOL | IDENTIFIER;

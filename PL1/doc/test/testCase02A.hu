@@ -2,55 +2,60 @@
 
 procedure testCase02 () is
 
--- Constantes
-CIERTO: constant := True;
-FALSO: constant := False;
-UNO: constant := 1;
+    -- Constantes
+    CIERTO: constant := True;
+    FALSO: constant := False;
+    UNO: constant := 1;
 
--- Tipos primitivos
-x: Integer; --Si se asigna salta error := 1;
-t: Boolean;
-y,z: Integer;
+    -- Tipos primitivos
+    x: Integer; --Si se asigna salta error := 1;
+    t: Boolean;
+    y,z: Integer;
 
--- Tipos estructurados
-type Tpersona is record
-	dni: Integer; --Si se asigna salta error := 1;
-	edad : Integer;
-	casado : Boolean;
-end record;
+    -- Tipos estructurados
+    type Tpersona is record
+        dni: Integer; --Si se asigna salta error := 1;
+        edad : Integer;
+        casado : Boolean;
+    end record;
 
-type Tfecha is record
-	dia,mes: Integer;
-	--mes : Integer;
-	anyo : Integer;
-end record;
+    type Tfecha is record
+        dia,mes: Integer;
+        --mes : Integer;
+        anyo : Integer;
+    end record;
 
-type Tcita is record
-	usuario,potato:Tpersona;
-	fecha:Tfecha; --Si se asigna salta error := 1;
-end record;
+    type Tcita is record
+        usuario,potato:Tpersona;
+        fecha:Tfecha; --Si se asigna salta error := 1;
+    end record;
 
--- Funciones
-function prueba () return Boolean is
-begin
-    --return True;
-end prueba;
+    -- Funciones
+    function prueba () return Boolean is
+    begin
 
-function resta (x,y: out Integer) return Integer is
-begin
+    end prueba;
 
-	return x-y;
+    function estructu (y: out Estructurado) return Integer is
+    begin
 
-end resta;
+    end resta;
 
-random: Boolean;
+    function resta2 (x,y: out Integer) return Integer is
+    begin
 
-function suma (x,y: out Integer; z: Boolean) return Integer is
-begin
+        --return x-y;
 
-	return x-y;
+    end resta2;
 
-end resta;
+    random: Boolean;
+
+    function suma (x,y: out Integer; z: Boolean; e: Estructurado) return Integer is
+    begin
+
+        --return x-y;
+
+    end resta;
 
 begin
 
