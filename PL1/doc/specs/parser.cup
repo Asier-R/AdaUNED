@@ -97,12 +97,15 @@ terminal Token IDENTIFIER;
 non terminal  			program;
 non terminal Axiom		axiom;
 // ...
-non terminal gramatica, vacio, parametros, parametro, parametroTipo;
+non terminal gramatica, vacio, parametros, parametro, parametroTipo, invocacion;
 non terminal procedureFirma, fin, bloqueProcedure, bloqueCuerpo, bloqueBegin;
 non terminal constante, constanteTipo;
 non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
 non terminal record, declararRecord, tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
-non terminal funcion, funcionFirma, bloqueFuncion, bloqueBeginFuncion, tipoRetorno;
+non terminal funcion, funcionFirma, funcionBloque, funcionBegin, tipoRetorno, funcionRetorno;
+non terminal expresion, expresionDeAcceso, operando, operador;
+
+non terminal errorDeAsignacion, errorFuncionSinReturn;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
@@ -132,7 +135,8 @@ program ::=
 
 axiom ::= gramatica;
 
-// Reglas de la gramatica //
+// REGLAS DE LA GRAMATICA
+// Reglas globales //
 gramatica          ::= procedureFirma bloqueProcedure BEGIN bloqueBegin fin;
 vacio              ::= ;
 
@@ -148,6 +152,9 @@ bloqueCuerpo       ::= constante         bloqueCuerpo
                      | vacio;
 
 bloqueBegin        ::= vacio;
+
+invocacion         ::= IDENTIFIER LPAR RPAR
+                     | IDENTIFIER LPAR expresion RPAR;
 //....................................................//
 
 
@@ -173,18 +180,18 @@ constanteTipo      ::= TRUE | FALSE | INTEGER;
 
 // Tipos primitivos //
 declararPrimitivo  ::= tipoPrimitivo SEMI
-                     | tipoPrimitivo ASSIGN
-                     error{:syntaxErrorManager.syntaxError("Asignación no permitida.");:};
+                     | tipoPrimitivo ASSIGN errorDeAsignacion;
+
 tipoPrimitivo      ::= IDENTIFIER COL tipoPrimitivoTipo
                      | IDENTIFIER COMMA tipoPrimitivo;
+
 tipoPrimitivoTipo  ::= INT | BOOL;
 //....................................................//
 
 
 // Tipos estructurados //
 declararRecord     ::= record SEMI
-                     | record ASSIGN
-                     error{:syntaxErrorManager.syntaxError("Asignación no permitida.");:};
+                     | record ASSIGN errorDeAsignacion;
 
 record             ::= IDENTIFIER COL IDENTIFIER
                      | IDENTIFIER COMMA record;
@@ -204,14 +211,32 @@ tipoRecordCampo    ::= declararPrimitivo
 
 
 // Funciones //
-funcion            ::= funcionFirma bloqueFuncion BEGIN bloqueBeginFuncion fin;
+funcion            ::= funcionFirma funcionBloque BEGIN funcionBegin fin;
 
 funcionFirma       ::= FUNCT IDENTIFIER LPAR parametros RPAR RETURN tipoRetorno IS;
 
-bloqueFuncion      ::= bloqueCuerpo;
+funcionBloque      ::= bloqueCuerpo;
 
-bloqueBeginFuncion ::= bloqueBegin;
+funcionBegin       ::= bloqueBegin funcionRetorno | errorFuncionSinReturn;
+
+funcionRetorno     ::= RETURN expresion SEMI;
 
 tipoRetorno        ::= INT | BOOL | IDENTIFIER;
 //....................................................//
 
+
+// Expresiones //
+expresion          ::= LPAR expresion RPAR | expresion operador expresion | operando | invocacion;
+
+operando           ::= TRUE | FALSE | INTEGER | expresionDeAcceso;
+
+operador           ::= MINUS | MULT | GREATER | DISTINC | AND;
+
+expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
+//....................................................//
+
+
+// Errores sintacticos
+errorDeAsignacion     ::= error{:syntaxErrorManager.syntaxError("Asignación no permitida");:};
+errorFuncionSinReturn ::= error{:syntaxErrorManager.syntaxError("Error en la sentencia 'return'");:};
+//....................................................//

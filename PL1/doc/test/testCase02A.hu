@@ -14,7 +14,7 @@ procedure testCase02 () is
 
     -- Tipos estructurados
     type Tpersona is record
-        dni: Integer; --Si se asigna salta error := 1;
+        dni: Integer;
         edad : Integer;
         casado : Boolean;
     end record;
@@ -27,33 +27,33 @@ procedure testCase02 () is
 
     type Tcita is record
         usuario,potato:Tpersona;
-        fecha:Tfecha; --Si se asigna salta error := 1;
+        fecha:Tfecha;
     end record;
 
     -- Funciones
     function prueba () return Boolean is
     begin
-
+        return (1);
     end prueba;
 
     function estructu (y: out Estructurado) return Integer is
     begin
-
+        return prueba(potato);
     end resta;
 
     function resta2 (x,y: out Integer) return Integer is
     begin
 
-        --return x-y;
+        return (x-y);
 
     end resta2;
 
     random: Boolean;
 
-    function suma (x,y: out Integer; z: Boolean; e: Estructurado) return Integer is
+    function mult (x,y: out Integer; z: Boolean; e: Estructurado) return Integer is
     begin
 
-        --return x-y;
+        return (x*y)*(2);
 
     end resta;
 
