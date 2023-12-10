@@ -103,9 +103,10 @@ non terminal constante, constanteTipo;
 non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
 non terminal record, declararRecord, tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
 non terminal funcion, funcionFirma, funcionBloque, funcionBegin, tipoRetorno, funcionRetorno;
+non terminal procedimiento, procedimientoFirma, procedimientoBloque, procedimientoBegin;
 non terminal expresion, expresionDeAcceso, operando, operador;
 
-non terminal errorDeAsignacion, errorFuncionSinReturn;
+non terminal errorDeAsignacion, errorFuncionSinReturn, errorContieneReturn;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
@@ -149,6 +150,7 @@ bloqueCuerpo       ::= constante         bloqueCuerpo
                      | declararPrimitivo bloqueCuerpo
                      | tipoRecord        bloqueCuerpo
                      | funcion           bloqueCuerpo
+                     | procedimiento     bloqueCuerpo
                      | vacio;
 
 bloqueBegin        ::= vacio;
@@ -202,11 +204,9 @@ tipoRecordFirma    ::= TYPE IDENTIFIER IS RECORD;
 
 tipoRecordFin      ::= END RECORD SEMI;
 
-tipoRecordCuerpo   ::= tipoRecordCampo
-                     | tipoRecordCampo tipoRecordCuerpo;
+tipoRecordCuerpo   ::= tipoRecordCampo | tipoRecordCampo tipoRecordCuerpo;
 
-tipoRecordCampo    ::= declararPrimitivo
-                     | declararRecord;
+tipoRecordCampo    ::= declararPrimitivo | declararRecord;
 //....................................................//
 
 
@@ -225,6 +225,16 @@ tipoRetorno        ::= INT | BOOL | IDENTIFIER;
 //....................................................//
 
 
+// Procedimientos //
+procedimiento      ::= procedimientoFirma procedimientoBloque BEGIN procedimientoBegin fin;
+
+procedimientoFirma ::= PROCEDURE IDENTIFIER LPAR parametros RPAR IS;
+procedimientoBloque::= bloqueCuerpo;
+
+procedimientoBegin ::= bloqueBegin | bloqueBegin RETURN errorContieneReturn;
+//....................................................//
+
+
 // Expresiones //
 expresion          ::= LPAR expresion RPAR | expresion operador expresion | operando | invocacion;
 
@@ -239,4 +249,5 @@ expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
 // Errores sintacticos
 errorDeAsignacion     ::= error{:syntaxErrorManager.syntaxError("Asignación no permitida");:};
 errorFuncionSinReturn ::= error{:syntaxErrorManager.syntaxError("Error en la sentencia 'return'");:};
+errorContieneReturn   ::= error{:syntaxErrorManager.syntaxError("Error, procedimiento con sentencia 'return'");:};
 //....................................................//

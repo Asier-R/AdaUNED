@@ -43,19 +43,23 @@ procedure testCase02 () is
 
     function resta2 (x,y: out Integer) return Integer is
     begin
-
         return (x-y);
-
     end resta2;
 
     random: Boolean;
 
     function mult (x,y: out Integer; z: Boolean; e: Estructurado) return Integer is
     begin
-
         return (x*y)*(2);
+    end resta;
+
+    -- Procedimientos
+    procedure resta (x, y, z: out Integer) is
+    begin
 
     end resta;
+
+
 
 begin
 
