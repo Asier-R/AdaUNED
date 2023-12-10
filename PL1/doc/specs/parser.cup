@@ -97,7 +97,7 @@ terminal Token IDENTIFIER;
 non terminal  			program;
 non terminal Axiom		axiom;
 // ...
-non terminal gramatica, vacio, parametros, parametro, parametroTipo, invocacion;
+non terminal gramatica, vacio, parametros, parametro, parametroTipo, invocacion, invocacionLista;
 non terminal procedureFirma, fin, bloqueProcedure, bloqueCuerpo, bloqueBegin;
 non terminal constante, constanteTipo;
 non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
@@ -150,8 +150,8 @@ bloqueCuerpo       ::= tipoRecord | declararPrimitivo | declararRecord | funcion
 
 bloqueBegin        ::= vacio;
 
-invocacion         ::= IDENTIFIER LPAR RPAR
-                     | IDENTIFIER LPAR expresion RPAR;
+invocacion         ::= IDENTIFIER LPAR invocacionLista RPAR;
+invocacionLista    ::= expresion | expresion COMMA invocacionLista | vacio;
 //....................................................//
 
 
