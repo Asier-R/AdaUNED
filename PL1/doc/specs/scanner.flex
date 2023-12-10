@@ -48,7 +48,6 @@ COMMENT = "--"[^\n\r]*{ESPACIO_BLANCO}
 DIGIT  = [0-9]
 LETTRE   = [a-zA-Z]
 INTEGER  = {DIGIT}+
-//FULLINTEGER  = {DIGIT}+(-{DIGIT})*
 IDENTIFIER = {LETTRE}+({LETTRE}|{DIGIT})*
 
 
@@ -92,7 +91,6 @@ IDENTIFIER = {LETTRE}+({LETTRE}|{DIGIT})*
     "procedure"         {return newToken(sym.PROCEDURE);}
     {STRTEXT}           {return newToken(sym.STRTEXT);}
     {INTEGER}           {return newToken(sym.INTEGER);}
-//    {FULLINTEGER}       {return newToken(sym.FULLINTEGER);}
     {IDENTIFIER}        {return newToken(sym.IDENTIFIER);}
     {COMMENT}           {lexicalErrorManager.lexicalInfo("Non Token - [ Comentario de linea = "+(yytext())+" , line = "+(yyline+1)+", column = "+(yycolumn+1)+"]\n");}
 

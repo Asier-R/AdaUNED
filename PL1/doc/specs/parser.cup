@@ -88,7 +88,6 @@ terminal Token TYPE;
 terminal Token PROCEDURE;
 terminal Token STRTEXT;
 terminal Token INTEGER;
-//terminal Token FULLINTEGER;
 terminal Token IDENTIFIER;
 
 // Declaracion de no terminales
@@ -239,11 +238,7 @@ operadorLogico     ::= GREATER | DISTINC | AND;
 
 
 // Sentencias //
-sentencia          ::= asignacion
-                     | flujoIf
-                     | flujoWhile
-                     | entradaSalida
-                     | invocacion SEMI;
+sentencia          ::= asignacion | flujoIf | flujoWhile | entradaSalida | invocacion SEMI;
 
 asignacion         ::= asignacionIzq ASSIGN expresion SEMI;
 asignacionIzq      ::= expresionDeAcceso | expresion errorMalAsignacion;
