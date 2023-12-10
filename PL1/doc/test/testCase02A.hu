@@ -11,6 +11,9 @@ procedure testCase02 () is
     x: Integer; --Si se asigna salta error := 1;
     t: Boolean;
     y,z: Integer;
+    t1: Tcita;
+
+    DOS: constant := 2;
 
     -- Tipos estructurados
     type Tpersona is record
@@ -32,17 +35,20 @@ procedure testCase02 () is
 
     -- Funciones
     function prueba () return Boolean is
+        y,z: Integer;
+        t1: Tcita;
     begin
         return (1);
     end prueba;
 
     function estructu (y: out Estructurado) return Integer is
     begin
-        return prueba(potato);
+        return prueba(potato.precios.precioES);
     end resta;
 
     function resta2 (x,y: out Integer) return Integer is
     begin
+
         return (x-y);
     end resta2;
 

@@ -144,14 +144,9 @@ vacio              ::= ;
 procedureFirma     ::= PROCEDURE IDENTIFIER LPAR RPAR IS;
 fin                ::= END IDENTIFIER SEMI;
 
-bloqueProcedure    ::= bloqueCuerpo;
+bloqueProcedure    ::= constante bloqueProcedure | bloqueCuerpo bloqueProcedure | vacio;
 
-bloqueCuerpo       ::= constante         bloqueCuerpo
-                     | declararPrimitivo bloqueCuerpo
-                     | tipoRecord        bloqueCuerpo
-                     | funcion           bloqueCuerpo
-                     | procedimiento     bloqueCuerpo
-                     | vacio;
+bloqueCuerpo       ::= tipoRecord | declararPrimitivo | declararRecord | funcion | procedimiento;
 
 bloqueBegin        ::= vacio;
 
@@ -215,9 +210,9 @@ funcion            ::= funcionFirma funcionBloque BEGIN funcionBegin fin;
 
 funcionFirma       ::= FUNCT IDENTIFIER LPAR parametros RPAR RETURN tipoRetorno IS;
 
-funcionBloque      ::= bloqueCuerpo;
+funcionBloque      ::= bloqueCuerpo funcionBloque | vacio;
 
-funcionBegin       ::= bloqueBegin funcionRetorno | errorFuncionSinReturn;
+funcionBegin       ::= bloqueBegin funcionRetorno | bloqueBegin errorFuncionSinReturn;
 
 funcionRetorno     ::= RETURN expresion SEMI;
 
@@ -229,7 +224,7 @@ tipoRetorno        ::= INT | BOOL | IDENTIFIER;
 procedimiento      ::= procedimientoFirma procedimientoBloque BEGIN procedimientoBegin fin;
 
 procedimientoFirma ::= PROCEDURE IDENTIFIER LPAR parametros RPAR IS;
-procedimientoBloque::= bloqueCuerpo;
+procedimientoBloque::= bloqueCuerpo procedimientoBloque | vacio;
 
 procedimientoBegin ::= bloqueBegin | bloqueBegin RETURN errorContieneReturn;
 //....................................................//
