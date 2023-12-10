@@ -105,9 +105,9 @@ non terminal record, declararRecord, tipoRecord, tipoRecordFirma, tipoRecordCuer
 non terminal funcion, funcionFirma, funcionBloque, funcionBegin, tipoRetorno, funcionRetorno;
 non terminal procedimiento, procedimientoFirma, procedimientoBloque, procedimientoBegin;
 non terminal expresion, expresionDeAcceso, operando, operador, expresionLogica, operandoLogico, operadorLogico;
-non terminal sentencia, asignacion, asignacionIzq, flujoIfThenElse, flujoWhile;
+non terminal sentencia, asignacion, asignacionIzq, flujoIf,flujoIfThen, flujoIfElse, flujoIfFin, flujoWhile, flujoWhileFin, entradaSalida;
 
-non terminal errorDeAsignacion, errorFuncionSinReturn, errorContieneReturn, errorMalAsignacion;
+non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
@@ -195,13 +195,9 @@ record             ::= IDENTIFIER COL IDENTIFIER
                      | IDENTIFIER COMMA record;
 
 tipoRecord         ::= tipoRecordFirma tipoRecordCuerpo tipoRecordFin;
-
 tipoRecordFirma    ::= TYPE IDENTIFIER IS RECORD;
-
 tipoRecordFin      ::= END RECORD SEMI;
-
 tipoRecordCuerpo   ::= tipoRecordCampo | tipoRecordCampo tipoRecordCuerpo;
-
 tipoRecordCampo    ::= declararPrimitivo | declararRecord;
 //....................................................//
 
@@ -210,11 +206,8 @@ tipoRecordCampo    ::= declararPrimitivo | declararRecord;
 funcion            ::= funcionFirma funcionBloque BEGIN funcionBegin fin;
 
 funcionFirma       ::= FUNCT IDENTIFIER LPAR parametros RPAR RETURN tipoRetorno IS;
-
 funcionBloque      ::= bloqueCuerpo funcionBloque | vacio;
-
 funcionBegin       ::= bloqueBegin funcionRetorno | bloqueBegin errorFuncionSinReturn;
-
 funcionRetorno     ::= RETURN expresion SEMI;
 
 tipoRetorno        ::= INT | BOOL | IDENTIFIER;
@@ -235,34 +228,38 @@ procedimientoBegin ::= bloqueBegin | bloqueBegin RETURN errorContieneReturn;
 expresion          ::= LPAR expresion RPAR | expresion operador expresion | operando | invocacion;
 
 operando           ::= TRUE | FALSE | INTEGER | expresionDeAcceso;
-
 operador           ::= MINUS | MULT | GREATER | DISTINC | AND;
 
 expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
 
 expresionLogica    ::= LPAR expresionLogica RPAR | expresionLogica operadorLogico expresionLogica | operandoLogico | invocacion;
-
 operandoLogico     ::= TRUE | FALSE | expresionDeAcceso;
-
 operadorLogico     ::= GREATER | DISTINC | AND;
 //....................................................//
 
 
 // Sentencias //
-sentencia          ::= asignacion | flujoIfThenElse | flujoWhile;
+sentencia          ::= asignacion sentencia | flujoIf sentencia | flujoWhile sentencia | entradaSalida sentencia;
 
 asignacion         ::= asignacionIzq ASSIGN expresion SEMI;
 asignacionIzq      ::= expresionDeAcceso | expresion errorMalAsignacion;
 
-flujoIfThenElse    ::= ;
+flujoIf            ::= flujoIfThen flujoIfFin | flujoIfThen flujoIfElse flujoIfFin;
+flujoIfThen        ::= IF expresionLogica THEN sentencia;
+flujoIfElse        ::= ELSE sentencia;
+flujoIfFin         ::= END IF;
 
-flujoWhile         ::= ;
+flujoWhile         ::= WHILE expresionLogica LOOP sentencia flujoWhileFin;
+flujoWhileFin      ::= END LOOP;
+
+entradaSalida      ::= PUTLINE LPAR expresion RPAR | PUTLINE LPAR expresion COMMA errorParametroPutLine;
 //....................................................//
 
 
 // Errores sintacticos
 errorDeAsignacion     ::= error{:syntaxErrorManager.syntaxError("Asignación no permitida");:};
+errorMalAsignacion    ::= error{:syntaxErrorManager.syntaxError("Error, asignación mal formada");:};
 errorFuncionSinReturn ::= error{:syntaxErrorManager.syntaxError("Error en la sentencia 'return'");:};
 errorContieneReturn   ::= error{:syntaxErrorManager.syntaxError("Error, procedimiento con sentencia 'return'");:};
-errorMalAsignacion    ::= error{:syntaxErrorManager.syntaxError("Error, asignación mal formada");:};
+errorParametroPutLine ::= error{:syntaxErrorManager.syntaxError("Error, solo se admite un parámetro");:};
 //....................................................//

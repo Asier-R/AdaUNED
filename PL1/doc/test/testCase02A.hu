@@ -18,12 +18,12 @@ procedure testCase02 () is
     -- Tipos estructurados
     type Tpersona is record
         dni: Integer;
-        edad : Integer;
+        edad : INTEGER;
         casado : Boolean;
     end record;
 
     type Tfecha is record
-        dia,mes: Integer;
+        dia,mes: integer;
         --mes : Integer;
         anyo : Integer;
     end record;
@@ -43,7 +43,7 @@ procedure testCase02 () is
 
     function estructu (y: out Estructurado) return Integer is
     begin
-        return prueba(potato.precios.precioES, parametroDOS > 2, (parametro.TRES - resta(2,1)) );
+        return pRueba(potato.precios.precioES, parametroDOS > 2, (parametro.TRES - resta(2,1)) );
     end resta;
 
     function resta2 (x,y: out Integer) return Integer is
@@ -60,7 +60,7 @@ procedure testCase02 () is
     end resta;
 
     -- Procedimientos
-    procedure resta (x, y, z: out Integer) is
+    PROCEDURE resta (x, y, z: out Integer) is
     begin
 
     end resta;
