@@ -50,9 +50,14 @@ procedure testCase02 () is
     begin
         p1 := 1;
         p2 := prueba;
-        p3 := prueba();
+        p3 := prueba(x);
         p4 := pRueba(potato.precios.precioES, parametroDOS > 2, (parametro.TRES - resta(2,1)) );
         prueba();
+        x:=2;
+        x := x-2;
+        --Probar tambien que no se puede asignar putline a una variable
+        Put_line(x);
+
         return (x-y);
     end resta2;
 
@@ -66,12 +71,30 @@ procedure testCase02 () is
     -- Procedimientos
     PROCEDURE resta (x, y, z: out Integer) is
     begin
-
+        p1 := 1;
+        p2 := prueba;
+        p3 := prueba(x);
+        p4 := pRueba(potato.precios.precioES, parametroDOS > 2, (parametro.TRES - resta(2,1)) );
+        prueba();
+        x:=2;
+        x := x-2;
+        Put_line(x);
     end resta;
 
 
 
 begin
+    Put_line(x);
+    Put_line ("CRONTROL FLUJO WHILE");
 
+	x:=5;
+
+
+	while x > 1 loop
+
+		Put_line(x);
+		x:=x-1;
+
+	end loop;
 
 end testCase02;

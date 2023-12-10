@@ -103,7 +103,7 @@ non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
 non terminal record, declararRecord, tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
 non terminal funcion, funcionFirma, funcionBloque, funcionBegin, tipoRetorno, funcionRetorno;
 non terminal procedimiento, procedimientoFirma, procedimientoBloque, procedimientoBegin;
-non terminal expresion, expresionDeAcceso, operando, operador, expresionLogica, operandoLogico, operadorLogico;
+non terminal expresion, expresionDeAcceso, operando, operador, expresionLogica, operadorLogico;
 non terminal sentencia, asignacion, asignacionIzq, flujoIf,flujoIfThen, flujoIfElse, flujoIfFin, flujoWhile, flujoWhileFin, entradaSalida;
 
 non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine;
@@ -231,8 +231,7 @@ operador           ::= MINUS | MULT | GREATER | DISTINC | AND;
 
 expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
 
-expresionLogica    ::= LPAR expresionLogica RPAR | expresionLogica operadorLogico expresionLogica | operandoLogico | invocacion;
-operandoLogico     ::= TRUE | FALSE | expresionDeAcceso;
+expresionLogica    ::= LPAR expresionLogica RPAR | expresionLogica operadorLogico expresionLogica | operando | invocacion;
 operadorLogico     ::= GREATER | DISTINC | AND;
 //....................................................//
 
@@ -244,15 +243,15 @@ asignacion         ::= asignacionIzq ASSIGN expresion SEMI;
 asignacionIzq      ::= expresionDeAcceso | expresion errorMalAsignacion;
 
 flujoIf            ::= flujoIfThen flujoIfFin | flujoIfThen flujoIfElse flujoIfFin;
-flujoIfThen        ::= IF expresionLogica THEN sentencia;
-flujoIfElse        ::= ELSE sentencia;
-flujoIfFin         ::= END IF;
+flujoIfThen        ::= IF expresionLogica THEN bloqueBegin;
+flujoIfElse        ::= ELSE bloqueBegin;
+flujoIfFin         ::= END IF SEMI;
 
-flujoWhile         ::= WHILE expresionLogica LOOP sentencia flujoWhileFin;
-flujoWhileFin      ::= END LOOP;
+flujoWhile         ::= WHILE expresionLogica LOOP bloqueBegin flujoWhileFin;
+flujoWhileFin      ::= END LOOP SEMI;
 
-entradaSalida      ::= PUTLINE LPAR expresion RPAR
-entradaSalida        | PUTLINE LPAR STRTEXT   RPAR
+entradaSalida      ::= PUTLINE LPAR STRTEXT   RPAR SEMI
+entradaSalida        | PUTLINE LPAR expresion RPAR SEMI
                      | PUTLINE LPAR expresion COMMA errorParametroPutLine;
 //....................................................//
 
