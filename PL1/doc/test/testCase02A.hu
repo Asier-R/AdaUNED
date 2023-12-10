@@ -48,7 +48,11 @@ procedure testCase02 () is
 
     function resta2 (x,y: out Integer) return Integer is
     begin
-
+        p1 := 1;
+        p2 := prueba;
+        p3 := prueba();
+        p4 := pRueba(potato.precios.precioES, parametroDOS > 2, (parametro.TRES - resta(2,1)) );
+        prueba();
         return (x-y);
     end resta2;
 

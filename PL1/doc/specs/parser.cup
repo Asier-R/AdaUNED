@@ -88,7 +88,7 @@ terminal Token TYPE;
 terminal Token PROCEDURE;
 terminal Token STRTEXT;
 terminal Token INTEGER;
-terminal Token FULLINTEGER;
+//terminal Token FULLINTEGER;
 terminal Token IDENTIFIER;
 
 // Declaracion de no terminales
@@ -149,7 +149,7 @@ bloqueProcedure    ::= constante bloqueProcedure | bloqueCuerpo bloqueProcedure 
 
 bloqueCuerpo       ::= tipoRecord | declararPrimitivo | declararRecord | funcion | procedimiento;
 
-bloqueBegin        ::= vacio;
+bloqueBegin        ::= sentencia bloqueBegin | vacio;
 
 invocacion         ::= IDENTIFIER LPAR invocacionLista RPAR;
 invocacionLista    ::= expresion | expresion COMMA invocacionLista | vacio;
@@ -161,9 +161,9 @@ parametros         ::= parametro
                      | parametro SEMI parametros
                      | vacio;
 
-parametro          ::= IDENTIFIER COL parametroTipo
+parametro          ::= IDENTIFIER COL     parametroTipo
                      | IDENTIFIER COL OUT parametroTipo
-                     | IDENTIFIER COMMA parametro;
+                     | IDENTIFIER COMMA   parametro;
 
 parametroTipo      ::= tipoPrimitivoTipo | IDENTIFIER;
 //....................................................//
@@ -239,7 +239,11 @@ operadorLogico     ::= GREATER | DISTINC | AND;
 
 
 // Sentencias //
-sentencia          ::= asignacion sentencia | flujoIf sentencia | flujoWhile sentencia | entradaSalida sentencia;
+sentencia          ::= asignacion
+                     | flujoIf
+                     | flujoWhile
+                     | entradaSalida
+                     | invocacion SEMI;
 
 asignacion         ::= asignacionIzq ASSIGN expresion SEMI;
 asignacionIzq      ::= expresionDeAcceso | expresion errorMalAsignacion;
@@ -252,7 +256,9 @@ flujoIfFin         ::= END IF;
 flujoWhile         ::= WHILE expresionLogica LOOP sentencia flujoWhileFin;
 flujoWhileFin      ::= END LOOP;
 
-entradaSalida      ::= PUTLINE LPAR expresion RPAR | PUTLINE LPAR expresion COMMA errorParametroPutLine;
+entradaSalida      ::= PUTLINE LPAR expresion RPAR
+entradaSalida        | PUTLINE LPAR STRTEXT   RPAR
+                     | PUTLINE LPAR expresion COMMA errorParametroPutLine;
 //....................................................//
 
 
