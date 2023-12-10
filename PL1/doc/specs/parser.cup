@@ -104,9 +104,10 @@ non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
 non terminal record, declararRecord, tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
 non terminal funcion, funcionFirma, funcionBloque, funcionBegin, tipoRetorno, funcionRetorno;
 non terminal procedimiento, procedimientoFirma, procedimientoBloque, procedimientoBegin;
-non terminal expresion, expresionDeAcceso, operando, operador;
+non terminal expresion, expresionDeAcceso, operando, operador, expresionLogica, operandoLogico, operadorLogico;
+non terminal sentencia, asignacion, asignacionIzq, flujoIfThenElse, flujoWhile;
 
-non terminal errorDeAsignacion, errorFuncionSinReturn, errorContieneReturn;
+non terminal errorDeAsignacion, errorFuncionSinReturn, errorContieneReturn, errorMalAsignacion;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
@@ -238,6 +239,24 @@ operando           ::= TRUE | FALSE | INTEGER | expresionDeAcceso;
 operador           ::= MINUS | MULT | GREATER | DISTINC | AND;
 
 expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
+
+expresionLogica    ::= LPAR expresionLogica RPAR | expresionLogica operadorLogico expresionLogica | operandoLogico | invocacion;
+
+operandoLogico     ::= TRUE | FALSE | expresionDeAcceso;
+
+operadorLogico     ::= GREATER | DISTINC | AND;
+//....................................................//
+
+
+// Sentencias //
+sentencia          ::= asignacion | flujoIfThenElse | flujoWhile;
+
+asignacion         ::= asignacionIzq ASSIGN expresion SEMI;
+asignacionIzq      ::= expresionDeAcceso | expresion errorMalAsignacion;
+
+flujoIfThenElse    ::= ;
+
+flujoWhile         ::= ;
 //....................................................//
 
 
@@ -245,4 +264,5 @@ expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
 errorDeAsignacion     ::= error{:syntaxErrorManager.syntaxError("Asignación no permitida");:};
 errorFuncionSinReturn ::= error{:syntaxErrorManager.syntaxError("Error en la sentencia 'return'");:};
 errorContieneReturn   ::= error{:syntaxErrorManager.syntaxError("Error, procedimiento con sentencia 'return'");:};
+errorMalAsignacion    ::= error{:syntaxErrorManager.syntaxError("Error, asignación mal formada");:};
 //....................................................//
