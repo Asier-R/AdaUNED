@@ -24,7 +24,6 @@ import es.uned.lsi.compiler.lexical.LexicalErrorManager;
 
 // incluir aqui, si es necesario otras directivas
 %ignorecase
-%full
 
 %{
   LexicalErrorManager lexicalErrorManager = new LexicalErrorManager ();
