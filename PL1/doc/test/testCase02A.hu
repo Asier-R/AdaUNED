@@ -88,7 +88,19 @@ procedure testCase02 () is
 
 begin
 
-   put_line("Patata");
+    Put_line(x);
+    Put_line ("CRONTROL FLUJO WHILE");
+
+  	x:=5;
+
+    resta(x,2);
+
+  	while x > 1 loop
+
+  		Put_line(x);
+  		x:=x-1;
+
+  	end loop;
 
 
 end testCase02;
