@@ -251,7 +251,7 @@ flujoWhile         ::= WHILE expresionLogica LOOP bloqueBegin flujoWhileFin;
 flujoWhileFin      ::= END LOOP SEMI;
 
 entradaSalida      ::= PUTLINE LPAR STRTEXT   RPAR SEMI
-entradaSalida        | PUTLINE LPAR expresion RPAR SEMI
+                     | PUTLINE LPAR expresion RPAR SEMI
                      | PUTLINE LPAR expresion COMMA errorParametroPutLine;
 //....................................................//
 

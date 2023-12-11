@@ -65,11 +65,14 @@ procedure testCase02 () is
 
     function mult (x,y: out Integer; z: Boolean; e: Estructurado) return Integer is
     begin
+        put_line("Patata");
         return (x*y)*(2);
     end resta;
 
     -- Procedimientos
     PROCEDURE resta (x, y, z: out Integer) is
+        y,z: Integer;
+        t1: Tcita;
     begin
         p1 := 1;
         p2 := prueba;
@@ -84,17 +87,8 @@ procedure testCase02 () is
 
 
 begin
-    Put_line(x);
-    Put_line ("CRONTROL FLUJO WHILE");
 
-	x:=5;
+   put_line("Patata");
 
-
-	while x > 1 loop
-
-		Put_line(x);
-		x:=x-1;
-
-	end loop;
 
 end testCase02;
