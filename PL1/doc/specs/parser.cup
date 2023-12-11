@@ -106,12 +106,13 @@ non terminal procedimiento, procedimientoFirma, procedimientoBloque, procedimien
 non terminal expresion, expresionDeAcceso, operando, operador, expresionLogica, operadorLogico;
 non terminal sentencia, asignacion, asignacionIzq, flujoIf,flujoIfThen, flujoIfElse, flujoIfFin, flujoWhile, flujoWhileFin, entradaSalida;
 
-non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine;
+non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine, errorOperadorLogico;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
 precedence left       AND;
-precedence left       GREATER, DISTINC;
+precedence left       GREATER;
+precedence left       DISTINC;
 precedence left       MINUS;
 precedence left       MULT;
 precedence left       LPAR, RPAR;
@@ -231,8 +232,14 @@ operador           ::= MINUS | MULT | GREATER | DISTINC | AND;
 
 expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
 
-expresionLogica    ::= LPAR expresionLogica RPAR | expresionLogica operadorLogico expresionLogica | operando | invocacion;
-operadorLogico     ::= GREATER | DISTINC | AND;
+expresionLogica    ::= operando
+                     | invocacion
+                     | LPAR expresion RPAR
+                     | expresionLogica operadorLogico expresionLogica;
+
+operadorLogico     ::= GREATER | DISTINC | AND
+                     | MINUS errorOperadorLogico
+                     | MULT errorOperadorLogico;
 //....................................................//
 
 
@@ -262,4 +269,5 @@ errorMalAsignacion    ::= error{:syntaxErrorManager.syntaxError("Error, asignaci
 errorFuncionSinReturn ::= error{:syntaxErrorManager.syntaxError("Error en la sentencia 'return'");:};
 errorContieneReturn   ::= error{:syntaxErrorManager.syntaxError("Error, procedimiento con sentencia 'return'");:};
 errorParametroPutLine ::= error{:syntaxErrorManager.syntaxError("Error, solo se admite un parámetro");:};
+errorOperadorLogico   ::= error{:syntaxErrorManager.syntaxError("Error, se require un operador logico");:};
 //....................................................//
