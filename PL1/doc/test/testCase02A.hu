@@ -77,6 +77,7 @@ procedure testCase02 () is
         p1 := 1;
         p2 := prueba;
         p3 := prueba(x) - 4;
+        p3 := prueba(x) > 4;
         p4 := pRueba(potato.precios.precioES, parametroDOS > 2, (parametro.TRES - resta(2,1)) );
         prueba();
         x:=2;

@@ -103,10 +103,10 @@ non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
 non terminal record, declararRecord, tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
 non terminal funcion, funcionFirma, funcionBloque, funcionBegin, tipoRetorno, funcionRetorno;
 non terminal procedimiento, procedimientoFirma, procedimientoBloque, procedimientoBegin;
-non terminal expresion, expresionDeAcceso, operando, operador, expresionLogica, operadorLogico, operandoLogico;
+non terminal expresion, expresionDeAcceso, expresionLogica, operadorLogico;
 non terminal sentencia, asignacion, asignacionIzq, flujoIf,flujoIfThen, flujoIfElse, flujoIfFin, flujoWhile, flujoWhileFin, entradaSalida;
 
-non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine, errorOperadorLogico;
+non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
@@ -238,7 +238,7 @@ expresionLogica    ::= LPAR expresionLogica RPAR
                      | TRUE
                      | FALSE;
 
-operadorLogico     ::= GREATER | DISTINC | AND; // | MINUS errorOperadorLogico;
+operadorLogico     ::= GREATER | DISTINC | AND;
 
 expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
 //....................................................//
@@ -270,5 +270,4 @@ errorMalAsignacion    ::= error{:syntaxErrorManager.syntaxError("Error, asignaci
 errorFuncionSinReturn ::= error{:syntaxErrorManager.syntaxError("Error en la sentencia 'return'");:};
 errorContieneReturn   ::= error{:syntaxErrorManager.syntaxError("Error, procedimiento con sentencia 'return'");:};
 errorParametroPutLine ::= error{:syntaxErrorManager.syntaxError("Error, solo se admite un parámetro");:};
-errorOperadorLogico   ::= error{:syntaxErrorManager.syntaxError("Error, se require un operador logico");:};
 //....................................................//
