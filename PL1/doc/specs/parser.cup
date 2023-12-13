@@ -103,7 +103,7 @@ non terminal declararPrimitivo, tipoPrimitivo, tipoPrimitivoTipo;
 non terminal record, declararRecord, tipoRecord, tipoRecordFirma, tipoRecordCuerpo, tipoRecordCampo, tipoRecordFin;
 non terminal funcion, funcionFirma, funcionBloque, funcionBegin, tipoRetorno, funcionRetorno;
 non terminal procedimiento, procedimientoFirma, procedimientoBloque, procedimientoBegin;
-non terminal expresion, expresionDeAcceso, operando, operador, expresionLogica, operadorLogico;
+non terminal expresion, expresionDeAcceso, operando, operador, expresionLogica, operadorLogico, operandoLogico;
 non terminal sentencia, asignacion, asignacionIzq, flujoIf,flujoIfThen, flujoIfElse, flujoIfFin, flujoWhile, flujoWhileFin, entradaSalida;
 
 non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine, errorOperadorLogico;
@@ -225,21 +225,22 @@ procedimientoBegin ::= bloqueBegin | bloqueBegin RETURN errorContieneReturn;
 
 
 // Expresiones //
-expresion          ::= LPAR expresion RPAR | expresion operador expresion | operando | invocacion;
+expresion          ::= LPAR expresion RPAR
+                     | expresion MINUS expresion
+                     | expresion MULT expresion
+                     | expresionLogica
+                     | INTEGER;
 
-operando           ::= TRUE | FALSE | INTEGER | expresionDeAcceso;
-operador           ::= MINUS | MULT | GREATER | DISTINC | AND;
+expresionLogica    ::= LPAR expresionLogica RPAR
+                     | expresion operadorLogico expresion
+                     | invocacion
+                     | expresionDeAcceso
+                     | TRUE
+                     | FALSE;
+
+operadorLogico     ::= GREATER | DISTINC | AND; // | MINUS errorOperadorLogico;
 
 expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
-
-expresionLogica    ::= operando
-                     | invocacion
-                     | LPAR expresion RPAR
-                     | expresionLogica operadorLogico expresionLogica;
-
-operadorLogico     ::= GREATER | DISTINC | AND
-                     | MINUS errorOperadorLogico
-                     | MULT errorOperadorLogico;
 //....................................................//
 
 

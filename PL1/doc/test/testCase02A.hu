@@ -76,12 +76,12 @@ procedure testCase02 () is
     begin
         p1 := 1;
         p2 := prueba;
-        p3 := prueba(x);
+        p3 := prueba(x) - 4;
         p4 := pRueba(potato.precios.precioES, parametroDOS > 2, (parametro.TRES - resta(2,1)) );
         prueba();
         x:=2;
         x := x-2;
-        Put_line(x);
+        Put_line(x*2);
     end resta;
 
 
@@ -94,6 +94,13 @@ begin
   	x:=5;
 
     resta(x,2);
+
+    while x > 1 loop
+
+      		Put_line(x);
+      		x:=x-1;
+
+      	end loop;
 
   	while x > 1 loop
 
@@ -109,7 +116,7 @@ begin
 
       	end loop;
 
-    if (2 - 1) then
+    if 2 - 1 then
         Put_line(2);
     end if;
 
@@ -119,6 +126,12 @@ begin
 
     if pRueba(potato.precios.precioES, parametroDOS > 2, (parametro.TRES - resta(2,1)) ) then
         Put_line(2);
+    else
+        if esPar(2) AND True then
+            Put_line(2);
+        else
+            x:=2;
+        end if;
     end if;
 
 end testCase02;
