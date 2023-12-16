@@ -106,7 +106,7 @@ non terminal procedimiento, procedimientoFirma, procedimientoBloque, procedimien
 non terminal expresion, expresionDeAcceso, expresionLogica, operadorLogico;
 non terminal sentencia, asignacion, asignacionIzq, flujoIf,flujoIfThen, flujoIfElse, flujoIfFin, flujoWhile, flujoWhileFin, entradaSalida;
 
-non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine;
+non terminal errorDeAsignacion, errorMalAsignacion, errorFuncionSinReturn, errorContieneReturn , errorParametroPutLine, errorDeSintaxis;
 
 // Declaracion de relaciones de precedencia
 //precedence left     PLUS,
@@ -145,9 +145,9 @@ vacio              ::= ;
 procedureFirma     ::= PROCEDURE IDENTIFIER LPAR RPAR IS;
 fin                ::= END IDENTIFIER SEMI;
 
-bloqueProcedure    ::= constante bloqueProcedure | bloqueCuerpo bloqueProcedure | vacio;
+bloqueProcedure    ::= bloqueCuerpo bloqueProcedure | vacio;
 
-bloqueCuerpo       ::= tipoRecord | declararPrimitivo | declararRecord | funcion | procedimiento;
+bloqueCuerpo       ::= tipoRecord | declararPrimitivo | declararRecord | funcion | procedimiento | constante | errorDeSintaxis;
 
 bloqueBegin        ::= sentencia bloqueBegin | vacio;
 
@@ -265,9 +265,11 @@ entradaSalida      ::= PUTLINE LPAR STRTEXT   RPAR SEMI
 
 
 // Errores sintacticos
-errorDeAsignacion     ::= error{:syntaxErrorManager.syntaxError("Asignación no permitida");:};
-errorMalAsignacion    ::= error{:syntaxErrorManager.syntaxError("Error, asignación mal formada");:};
-errorFuncionSinReturn ::= error{:syntaxErrorManager.syntaxError("Error en la sentencia 'return'");:};
-errorContieneReturn   ::= error{:syntaxErrorManager.syntaxError("Error, procedimiento con sentencia 'return'");:};
-errorParametroPutLine ::= error{:syntaxErrorManager.syntaxError("Error, solo se admite un parámetro");:};
+errorDeAsignacion     ::= error{:syntaxErrorManager.syntaxError("Error - Asignación no permitida");:};
+errorMalAsignacion    ::= error{:syntaxErrorManager.syntaxError("Error - Asignación mal formada");:};
+errorFuncionSinReturn ::= error{:syntaxErrorManager.syntaxError("Error - Error en la sentencia 'return'");:};
+errorContieneReturn   ::= error{:syntaxErrorManager.syntaxError("Error - Procedimiento con sentencia 'return'");:};
+errorParametroPutLine ::= error{:syntaxErrorManager.syntaxError("Error - Solo se admite un parámetro");:};
+errorDeSintaxis       ::= IF error{:syntaxErrorManager.syntaxError("Error - Sentencia IF no permitida en bloque de declaración");:}
+                        | WHILE error{:syntaxErrorManager.syntaxError("Error - Sentencia WHILE no permitida en bloque de declaración");:};
 //....................................................//

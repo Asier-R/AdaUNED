@@ -1,21 +1,16 @@
--- salida
-
 procedure testCase02 () is
 
-    -- Constantes
     CIERTO: constant := True;
     FALSO: constant := False;
     UNO: constant := 1;
 
-    -- Tipos primitivos
-    x: Integer; --Si se asigna salta error := 1;
+    x: Integer;
     t: Boolean;
     y,z: Integer;
     t1: Tcita;
 
     DOS: constant := 2;
 
-    -- Tipos estructurados
     type Tpersona is record
         dni: Integer;
         edad : INTEGER;
@@ -24,7 +19,6 @@ procedure testCase02 () is
 
     type Tfecha is record
         dia,mes: integer;
-        --mes : Integer;
         anyo : Integer;
     end record;
 
@@ -33,7 +27,6 @@ procedure testCase02 () is
         fecha:Tfecha;
     end record;
 
-    -- Funciones
     function prueba () return Boolean is
         y,z: Integer;
         t1: Tcita;
@@ -55,7 +48,7 @@ procedure testCase02 () is
         prueba();
         x:=2;
         x := x-2;
-        --Probar tambien que no se puede asignar putline a una variable
+
         Put_line(x);
 
         return (x-y);
@@ -69,7 +62,6 @@ procedure testCase02 () is
         return (x*y)*(2);
     end resta;
 
-    -- Procedimientos
     PROCEDURE resta (x, y, z: out Integer) is
         y,z: Integer;
         t1: Tcita;
@@ -96,6 +88,16 @@ begin
 
     resta(x,2);
 
+    while TRUE loop
+    end loop;
+
+    if FALSE then
+    end if;
+
+    if TRUE then
+    else
+    end if;
+
     while x > 1 loop
 
       		Put_line(x);
@@ -104,10 +106,18 @@ begin
       	end loop;
 
   	while x > 1 loop
-
   		Put_line(x);
   		x:=x-1;
-
+  		if 2 > 1 then
+            Put_line(2);
+        end if;
+        while x > 1 loop
+            Put_line(x);
+            x:=x-1;
+            if 2 > 1 then
+                Put_line(2);
+            end if;
+        end loop;
   	end loop;
 
   	while (x-1) > 1 loop
@@ -117,7 +127,7 @@ begin
 
       	end loop;
 
-    if 2 - 1 then
+    if 2 > 1 then
         Put_line(2);
     end if;
 
@@ -130,8 +140,25 @@ begin
     else
         if esPar(2) AND True then
             Put_line(2);
+            if esPar(2) > 2 AND True then
+                Put_line(2);
+            end if;
+            while x > 1 loop
+                Put_line(x);
+                x:=x-1;
+                if 2 > 1 then
+                    Put_line(2);
+                end if;
+            end loop;
         else
             x:=2;
+            while x > 1 loop
+                Put_line(x);
+                x:=x-1;
+                if 2 > 1 then
+                    Put_line(2);
+                end if;
+            end loop;
         end if;
     end if;
 
