@@ -150,9 +150,6 @@ bloqueProcedure    ::= bloqueCuerpo bloqueProcedure | vacio;
 bloqueCuerpo       ::= tipoRecord | declararPrimitivo | declararRecord | funcion | procedimiento | constante | errorDeSintaxis;
 
 bloqueBegin        ::= sentencia bloqueBegin | vacio;
-
-invocacion         ::= IDENTIFIER LPAR invocacionLista RPAR;
-invocacionLista    ::= expresion | expresion COMMA invocacionLista | vacio;
 //....................................................//
 
 
@@ -241,6 +238,9 @@ expresionLogica    ::= LPAR expresionLogica RPAR
 operadorLogico     ::= GREATER | DISTINC | AND;
 
 expresionDeAcceso  ::= IDENTIFIER ACCESS expresionDeAcceso | IDENTIFIER;
+
+invocacion         ::= IDENTIFIER LPAR invocacionLista RPAR;
+invocacionLista    ::= expresion | expresion COMMA invocacionLista | vacio;
 //....................................................//
 
 
