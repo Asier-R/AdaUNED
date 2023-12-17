@@ -1,5 +1,4 @@
 procedure testCase02 () is
-
     CIERTO: constant := True;
     FALSO: constant := False;
     UNO: constant := 1;
@@ -31,7 +30,7 @@ procedure testCase02 () is
         y,z: Integer;
         t1: Tcita;
     begin
-        return (1);
+        return 1;
     end prueba;
 
     function estructu (y: out Estructurado) return Integer is
@@ -82,7 +81,7 @@ procedure testCase02 () is
 begin
 
     Put_line(x);
-    Put_line ("CRONTROL FLUJO WHILE");
+    Put_line ("CRONTROL FLUJO Put_line(x); WHILE");
 
   	x:=5;
 
@@ -127,8 +126,12 @@ begin
 
       	end loop;
 
-    if 2 > 1 then
+    if 2-1 AND 1 then
         Put_line(2);
+    end if;
+
+    if (2>1) AND 1 then
+       Put_line(2);
     end if;
 
     if esPar(2) AND True then
